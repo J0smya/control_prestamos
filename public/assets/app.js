@@ -11,4 +11,24 @@ document.getElementById('formPrestamo').addEventListener('submit', function(e) {
         alert('Campos obligatorios: Equipo, Aprendiz, Fecha de Préstamo');
         e.preventDefault();
     }
+
+function eliminarPrestamo(id) {
+    if (!confirm('¿Seguro que deseas eliminar este préstamo?')) return;
+
+    fetch('php/eliminarPrestamo.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `id=${id}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.message);
+        if (data.success) {
+            location.reload();
+        }
+    });
+}
+
 });
