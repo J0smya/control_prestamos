@@ -1,5 +1,5 @@
 <?php
-require_once 'php/Database.php';
+require_once 'php/database.php';
 
 $db = new Database();
 $conn = $db->getConnection();
@@ -32,7 +32,7 @@ $result = $conn->query($query);
         <div class="card mb-4">
             <div class="card-header">Agregar Préstamo</div>
             <div class="card-body">
-                <form action="php/GuardarPrestamo.php" method="POST" id="formPrestamo">
+                <form action="/control_prestamos/php/guardarPrestamos.php" method="POST" id="formPrestamo">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label>Equipo</label>
@@ -106,7 +106,7 @@ $result = $conn->query($query);
                             <?php if (!$row['devuelto']): ?>
                                 <button class="btn btn-success btn-sm" onclick="marcarDevuelto(<?php echo $row['id']; ?>)">Marcar Devuelto</button>
                             <?php endif; ?>
-                            <a href="php/EliminarPrestamo.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar?')">Eliminar</a>
+                            <a href="/control_prestamos/php/eliminarPrestamo.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar?')">Eliminar</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
@@ -118,7 +118,7 @@ $result = $conn->query($query);
     <div class="modal fade" id="modalDevuelto" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="php/ActualizarPrestamo.php" method="POST">
+                <form action="/control_prestamos/php/ActualizarPrestamo.php" method="POST">
                     <div class="modal-header">
                         <h5>Marcar como Devuelto</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>

@@ -1,51 +1,17 @@
 <?php
-header('Content-Type: application/json');
+require_once 'Database.php';
 
-require_once 'database.php';
+$db = new Database();
+$conn = $db->getConnection();
 
-// Validar ID
-if (!isset($_POST['id']) || empty($_POST['id'])) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'ID del préstamo no recibido'
-    ]);
-    exit;
-}
-
-$id = intval($_POST['id']);
-
-try {
-    // Crear conexión usando la clase Database
-    $database = new Database();
-    $conn = $database->getConnection();
-
-    // Consulta preparada
-    $sql = "DELETE FROM prestamos WHERE id = ? AND devuelto = 0";
-    $stmt = $conn->prepare($sql);
+if (isset($_GET['id'])) {
+    $id = (int)$_GET['id'];
+    $stmt = $conn->prepare("UPDATE prestamos SET devuelto = 2 WHERE id = ?");  // 2 = eliminado (borrado suave)
     $stmt->bind_param("i", $id);
-
     $stmt->execute();
-
-    if ($stmt->affected_rows > 0) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'Préstamo eliminado correctamente'
-    ]);
-    } else {
-    echo json_encode([
-        'success' => false,
-        'message' => 'No se puede eliminar: el préstamo ya fue devuelto o no existe'
-    ]);
-    }
-
     $stmt->close();
-
-    $database->close();
-
-} catch (Exception $e) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Error: ' . $e->getMessage()
-    ]);
 }
+
+$db->close();
+header('Location: ../index.php');
 ?>
