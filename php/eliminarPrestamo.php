@@ -6,7 +6,7 @@ $conn = $db->getConnection();
 
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
-    $stmt = $conn->prepare("UPDATE prestamos SET devuelto = 2 WHERE id = ?");  // 2 = eliminado (borrado suave)
+    $stmt = $conn->prepare("UPDATE prestamos SET devuelto = 2 WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $stmt->close();
