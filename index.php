@@ -1,5 +1,5 @@
 <?php
-require_once 'php/Database.php';
+require_once 'php/database.php';
 
 $db = new Database();
 $conn = $db->getConnection();
@@ -41,7 +41,7 @@ $result = $conn->query($query);
                 <i class="bi bi-plus-circle"></i> Agregar Nuevo Préstamo
             </div>
             <div class="card-body">
-                <form action="/control_prestamos/php/GuardarPrestamo.php" method="POST" id="formPrestamo">
+                <form action="/control_prestamos/php/guardarPrestamos.php" method="POST" id="formPrestamo">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label"><i class="bi bi-gear"></i> Equipo</label>
@@ -138,7 +138,7 @@ $result = $conn->query($query);
                                             <i class="bi bi-check-circle"></i> Marcar Devuelto
                                         </button>
                                     <?php endif; ?>
-                                    <a href="/control_prestamos/php/EliminarPrestamo.php?id=<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm rounded-pill ms-1" onclick="return confirm('¿Eliminar?')">
+                                    <a href="/control_prestamos/php/eliminarPrestamo.php?id=<?php echo $row['id']; ?>" class="btn btn-outline-danger btn-sm rounded-pill ms-1" onclick="return confirm('¿Eliminar?')">
                                         <i class="bi bi-trash"></i> Eliminar
                                     </a>
                                 </td>
